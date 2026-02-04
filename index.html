@@ -1,1 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Favorite Person</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #ffeef2;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+        h1 { color: #d63384; font-size: 2.5rem; text-align: center; padding: 0 20px; }
+        .gif-container img { width: 250px; border-radius: 20px; margin-bottom: 20px; }
+        
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100px; /* Pevná výška pro tlačítka v řadě */
+            gap: 20px;
+        }
 
+        button {
+            padding: 15px 30px;
+            font-size: 1.5rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            z-index: 100;
+        }
+
+        #yesBtn { background-color: #ff4d6d; color: white; }
+        
+        #noBtn { 
+            background-color: #6c757d; 
+            color: white; 
+            transition: 0.1s;
+        }
+
+        .success-msg { display: none; text-align: center; padding: 20px; }
+        .success-msg h1 { font-size: 2.2rem; color: #ff4d6d; line-height: 1.2; }
+    </style>
+</head>
+<body>
+
+    <div id="main-content">
+        <div class="gif-container">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGtxbm5qZzR4eG5qZzR4eG5qZzR4eG5qZzR4eG5qZzR4ZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/MDJ9IbxxvDUQM/giphy.gif" alt="Cute Cat">
+        </div>
+        <h1>Will you be my Valentine? ❤️</h1>
+        <div class="buttons-container">
+            <button id="yesBtn" onclick="celebrate()">Yes</button>
+            <button id="noBtn" onmouseover="moveNoButton()">No</button>
+        </div>
+    </div>
+
+    <div id="success-msg" class="success-msg">
+        <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3Y5bmRxaTVmNWpueGF0eXBvYmttbmZndmlqN3h6ZTV4ZzN4Z3Z0eSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Lp8876pX6R01j6K5C4/giphy.webp" alt="Bugs Bunny Hearts" style="width:300px; border-radius:20px;">
+        <h1>Happy Valentines day,<br>I love you very much my pupicek! 🥰</h1>
+    </div>
+
+    <script>
+        function moveNoButton() {
+            const noBtn = document.getElementById('noBtn');
+            // Změníme pozici na absolutní až při prvním útěku
+            noBtn.style.position = 'absolute';
+            
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+        }
+
+        function celebrate() {
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('success-msg').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
