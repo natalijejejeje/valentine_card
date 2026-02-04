@@ -16,26 +16,27 @@
             font-family: 'Arial', sans-serif;
             overflow: hidden;
         }
-        h1 { color: #d63384; font-size: 3rem; text-align: center; }
+        h1 { color: #d63384; font-size: 2.5rem; text-align: center; padding: 0 20px; }
         .gif-container img { width: 250px; border-radius: 20px; margin-bottom: 20px; }
-        .buttons { display: flex; gap: 20px; position: relative; }
+        .buttons { display: flex; gap: 20px; position: relative; width: 100%; justify-content: center; height: 100px; align-items: center; }
         button {
             padding: 15px 30px;
             font-size: 1.5rem;
             border: none;
             border-radius: 10px;
             cursor: pointer;
-            transition: 0.3s;
+            transition: transform 0.1s ease;
+            z-index: 10;
         }
         #yesBtn { background-color: #ff4d6d; color: white; }
         #noBtn {
             background-color: #6c757d;
             color: white;
             position: absolute;
-            left: 120px;
         }
-        .success-msg { display: none; text-align: center; }
-        .success-msg h1 { font-size: 4rem; }
+        .success-msg { display: none; text-align: center; padding: 20px; }
+        .success-msg h1 { font-size: 3rem; color: #ff4d6d; }
+        .success-msg p { font-size: 1.5rem; color: #d63384; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -47,32 +48,44 @@
         <h1>Will you be my Valentine? ❤️</h1>
         <div class="buttons">
             <button id="yesBtn" onclick="celebrate()">Yes</button>
-            <button id="noBtn" onmouseover="moveButton()">No</button>
+            <button id="noBtn">No</button>
         </div>
     </div>
 
     <div id="success-msg" class="success-msg">
-        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGtxbm5qZzR4eG5qZzR4eG5qZzR4eG5qZzR4eG5qZzR4ZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/v1.Y2lkPTc5MGI3NjExOHpueGtxbm5qZzR4eG5qZzR4eG5qZzR4eG5qZzR4eG5qZzR4eG5qZzR4ZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/l41lTfuxV5lP5n9V6/giphy.gif" alt="Happy Dance">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGtxbm5qZzR4eG5qZzR4eG5qZzR4eG5qZzR4eG5qZzR4ZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/l41lTfuxV5lP5n9V6/giphy.gif" alt="Happy Dance">
         <h1>I knew you'd say yes! 🥰</h1>
-        <p>See you on the 14th! 🌹</p>
+        <p>Happy Valentines day, I love you very much my pupicek!</p>
     </div>
 
     <script>
-        function moveButton() {
-            const noBtn = document.getElementById('noBtn');
-            // This makes the button jump away within the screen limits
-            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+        const noBtn = document.getElementById('noBtn');
+
+        // This makes the button jump away whenever the mouse gets close
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX;
+            const y = e.clientY;
+            const buttonRect = noBtn.getBoundingClientRect();
             
-            noBtn.style.position = 'absolute';
-            noBtn.style.left = x + 'px';
-            noBtn.style.top = y + 'px';
-        }
+            // Calculate distance between mouse and button center
+            const buttonCenterX = buttonRect.left + buttonRect.width / 2;
+            const buttonCenterY = buttonRect.top + buttonRect.height / 2;
+            
+            const distance = Math.hypot(x - buttonCenterX, y - buttonCenterY);
+
+            // If mouse is within 100 pixels, move the button
+            if (distance < 100) {
+                const newX = Math.random() * (window.innerWidth - buttonRect.width);
+                const newY = Math.random() * (window.innerHeight - buttonRect.height);
+                
+                noBtn.style.left = `${newX}px`;
+                noBtn.style.top = `${newY}px`;
+            }
+        });
 
         function celebrate() {
             document.getElementById('main-content').style.display = 'none';
             document.getElementById('success-msg').style.display = 'block';
-            confettiEffect();
         }
     </script>
 </body>
